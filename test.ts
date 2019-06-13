@@ -8,6 +8,12 @@ const obj = {
   yes: true
 };
 
+const objWithUndefined = {
+  foo: 'bar',
+  yes: true,
+  isUndefined: undefined
+}
+
 const listValue = {
   values: [{
     kind: 'nullValue',
@@ -169,6 +175,11 @@ test('list.decode', t => {
 
 test('struct.encode', t => {
   const actual = struct.encode(obj);
+  t.deepEqual(actual, structValue);
+});
+
+test('struct.encode - undefined value', t => {
+  const actual = struct.encode(objWithUndefined);
   t.deepEqual(actual, structValue);
 });
 

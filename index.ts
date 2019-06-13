@@ -127,6 +127,8 @@ export const struct = {
   encode(json: JsonObject): Struct {
     const fields = {};
     Object.keys(json).forEach(key => {
+      // If value is undefined, do not encode it.
+      if (!json[key]) return;
       fields[key] = value.encode(json[key]);
     });
     return {fields};
