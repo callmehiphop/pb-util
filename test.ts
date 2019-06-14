@@ -12,7 +12,7 @@ const objWithUndefined = {
   foo: 'bar',
   yes: true,
   isUndefined: undefined
-}
+};
 
 const listValue = {
   values: [{
