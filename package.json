@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint ./{index,test}.ts",
-    "test": "ava ./test.ts --verbose",
+    "test": "npm run lint && ava ./test.ts --verbose",
     "prepublishOnly": "npm run build"
   },
   "repository": "callmehiphop/pb-util",
@@ -30,10 +30,11 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.5.0",
-    "ava": "^1.4.0",
+    "@typescript-eslint/parser": "^1.10.2",
+    "ava": "^2.1.0",
     "eslint": "^5.15.3",
     "ts-node": "^8.0.3",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.5.0"
   },
   "ava": {
     "compileEnhancements": false,
