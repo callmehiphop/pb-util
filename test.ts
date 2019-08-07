@@ -5,12 +5,14 @@ const arr = [null, 10];
 
 const obj = {
   foo: 'bar',
-  yes: true
+  no: false,
+  nil: null
 };
 
 const objWithUndefined = {
   foo: 'bar',
-  yes: true,
+  no: false,
+  nil: null,
   isUndefined: undefined
 };
 
@@ -30,9 +32,13 @@ const structValue = {
       kind: 'stringValue',
       stringValue: 'bar'
     },
-    yes: {
+    no: {
       kind: 'boolValue',
-      boolValue: true
+      boolValue: false
+    },
+    nil: {
+      kind: 'nullValue',
+      nullValue: 0
     }
   }
 };
