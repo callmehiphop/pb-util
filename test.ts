@@ -169,6 +169,18 @@ test('value.decode - boolValue', t => {
   t.is(actual, true);
 });
 
+// https://github.com/callmehiphop/pb-util/issues/5
+test('value.decode - multiple values', t => {
+  const encodedValue = {
+    kind: 'stringValue',
+    stringValue: 'foo',
+    nullValue: 0
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, 'foo');
+});
+
 test('list.encode', t => {
   const actual = list.encode(arr);
   t.deepEqual(actual, listValue);
