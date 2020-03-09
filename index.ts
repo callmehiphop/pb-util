@@ -101,16 +101,16 @@ export const value = {
    * @returns {*}
    */
   decode(value: Value): JsonValue {
-    if (value.listValue) {
-      return list.decode(value.listValue);
+    switch(value.kind) {
+      case 'listValue':
+        return list.decode(value.listValue);
+      case 'structValue':
+        return struct.decode(value.structValue);
+      case 'nullValue':
+        return null;
+      default:
+        return value[value.kind] as JsonValue;
     }
-    if (value.structValue) {
-      return struct.decode(value.structValue);
-    }
-    if (typeof value.nullValue !== 'undefined') {
-      return null;
-    }
-    return value[value.kind] as JsonValue;
   }
 };
 
