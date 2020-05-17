@@ -33,12 +33,12 @@ export type JsonValue = string|number|boolean|null|JsonObject|JsonArray;
  */
 export interface Value {
   kind?: string;
-  nullValue?: number;
-  numberValue?: number;
-  stringValue?: string;
-  boolValue?: boolean;
-  structValue?: Struct;
-  listValue?: ListValue;
+  nullValue?: number | 'NULL_VALUE' | null;
+  numberValue?: number | null;
+  stringValue?: string | null;
+  boolValue?: boolean | null;
+  structValue?: Struct | null;
+  listValue?: ListValue | null;
 }
 
 /**
@@ -46,7 +46,7 @@ export interface Value {
  * @property {Object.<string, Value>} fields The struct fields.
  */
 export interface Struct {
-  fields?: {[key: string]: Value};
+  fields?: {[key: string]: Value} | null;
 }
 
 /**
@@ -54,7 +54,7 @@ export interface Struct {
  * @property {Value[]} values The list values.
  */
 export interface ListValue {
-  values?: Value[];
+  values?: Value[] | null;
 }
 
 const toString = Object.prototype.toString;
