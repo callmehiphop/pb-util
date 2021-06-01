@@ -57,23 +57,51 @@ export interface ListValue {
   values?: Value[];
 }
 
+/**
+ * Valid `kind` types
+ */
+enum Kind {
+  Struct = 'structValue',
+  List = 'listValue',
+  Number = 'numberValue',
+  String = 'stringValue',
+  Bool = 'boolValue',
+  Null = 'nullValue'
+}
+
 const toString = Object.prototype.toString;
 
 const encoders = {
-  [typeOf({})]: v => wrap('structValue', struct.encode(v)),
-  [typeOf([])]: v => wrap('listValue', list.encode(v)),
-  [typeOf(0)]: v => wrap('numberValue', v),
-  [typeOf('')]: v => wrap('stringValue', v),
-  [typeOf(true)]: v => wrap('boolValue', v),
-  [typeOf(null)]: () => wrap('nullValue', 0)
+  [typeOf({})]: v => wrap(Kind.Struct, struct.encode(v)),
+  [typeOf([])]: v => wrap(Kind.List, list.encode(v)),
+  [typeOf(0)]: v => wrap(Kind.Number, v),
+  [typeOf('')]: v => wrap(Kind.String, v),
+  [typeOf(true)]: v => wrap(Kind.Bool, v),
+  [typeOf(null)]: () => wrap(Kind.Null, 0)
 };
 
 function typeOf(value: JsonValue): string {
   return toString.call(value);
 }
 
-function wrap(kind: keyof Value, value): Value {
+function wrap(kind: Kind, value): Value {
   return {kind, [kind]: value};
+}
+
+function getKind(value: Value): string | null {
+  if (value.kind) {
+    return value.kind;
+  }
+
+  const validKinds = Object.values(Kind);
+
+  for (const kind of validKinds) {
+    if (value.hasOwnProperty(kind)) {
+      return kind;
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -97,11 +125,19 @@ export const value = {
   /**
    * Decodes a protobuf {@link Value} into a JSON value.
    *
+   * @throws {TypeError} If unable to determine value `kind`.
+   *
    * @param {Value} value the protobuf value.
    * @returns {*}
    */
   decode(value: Value): JsonValue {
-    switch(value.kind) {
+    const kind = getKind(value);
+
+    if (!kind) {
+      throw new TypeError(`Unable to determine kind for "${value}".`);
+    }
+
+    switch(kind) {
       case 'listValue':
         return list.decode(value.listValue);
       case 'structValue':
@@ -109,7 +145,7 @@ export const value = {
       case 'nullValue':
         return null;
       default:
-        return value[value.kind] as JsonValue;
+        return value[kind] as JsonValue;
     }
   }
 };

@@ -181,6 +181,15 @@ test('value.decode - multiple values', t => {
   t.is(actual, 'foo');
 });
 
+test('value.decode - no kind', t => {
+  const encodedValue = {
+    stringValue: 'foo'
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, 'foo');
+});
+
 test('list.encode', t => {
   const actual = list.encode(arr);
   t.deepEqual(actual, listValue);
