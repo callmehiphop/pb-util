@@ -1,5 +1,5 @@
 import test from 'ava';
-import {list, struct, value} from './index';
+import {list, struct, value, JsonValue} from './index';
 
 const arr = [null, 10];
 
@@ -105,7 +105,7 @@ test('value.encode - null', t => {
 
 test('value.encode - unknown', t => {
   t.throws(() => {
-    value.encode(new Date() as {});
+    value.encode(new Date() as unknown as JsonValue);
   });
 });
 
