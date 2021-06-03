@@ -1,6 +1,6 @@
 {
   "name": "pb-util",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utilities for working with common protobuf types",
   "main": "build",
   "files": [
