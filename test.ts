@@ -214,3 +214,8 @@ test('struct.decode', t => {
   const actual = struct.decode(structValue);
   t.deepEqual(actual, obj);
 });
+
+test('struct.decode - undefined fields', t => {
+  const actual = struct.decode({});
+  t.deepEqual(actual, {});
+});
