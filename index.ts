@@ -175,7 +175,7 @@ export const struct = {
    * @param {Struct} struct the protobuf struct.
    * @returns {Object.<string, *>}
    */
-  decode({fields}: Struct): JsonObject {
+  decode({fields = {}}: Struct): JsonObject {
     const json = {};
     Object.keys(fields).forEach(key => {
       json[key] = value.decode(fields[key]);
