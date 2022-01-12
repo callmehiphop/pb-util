@@ -205,7 +205,7 @@ export const list = {
    * @param {ListValue} list the protobuf list value.
    * @returns {Array.<*>}
    */
-  decode({values}: ListValue): JsonArray {
+  decode({values = []}: ListValue): JsonArray {
     return values.map(value.decode);
   }
 };
