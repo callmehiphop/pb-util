@@ -219,3 +219,8 @@ test('struct.decode - undefined fields', t => {
   const actual = struct.decode({});
   t.deepEqual(actual, {});
 });
+
+test('struct.decode - empty listValue', t => {
+  const actual = struct.decode({ fields: { test: { listValue: {} } } });
+  t.deepEqual(actual, {test: []});
+});
