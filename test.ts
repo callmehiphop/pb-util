@@ -119,6 +119,16 @@ test('value.decode - listValue', t => {
   t.deepEqual(actual, arr);
 });
 
+test('value.decode - listValue is null', t => {
+  const encodedValue = {
+    kind: 'listValue',
+    listValue: { values: null }
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
+});
+
 test('value.decode - structValue', t => {
   const encodedValue = {
     kind: 'structValue',
@@ -127,6 +137,16 @@ test('value.decode - structValue', t => {
 
   const actual = value.decode(encodedValue);
   t.deepEqual(actual, obj);
+});
+
+test('value.decode - structValue is null', t => {
+  const encodedValue = {
+    kind: 'structValue',
+    structValue: { fields: null }
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
 });
 
 test('value.decode - nullValue 0', t => {
@@ -169,6 +189,16 @@ test('value.decode - stringValue', t => {
   t.is(actual, 'foo');
 });
 
+test('value.decode - stringValue is null', t => {
+  const encodedValue = {
+    kind: 'stringValue',
+    stringValue: null
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
+});
+
 test('value.decode - numberValue', t => {
   const encodedValue = {
     kind: 'numberValue',
@@ -179,6 +209,16 @@ test('value.decode - numberValue', t => {
   t.is(actual, 10);
 });
 
+test('value.decode - numberValue is null', t => {
+  const encodedValue = {
+    kind: 'numberValue',
+    numberValue: null
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
+});
+
 test('value.decode - boolValue', t => {
   const encodedValue = {
     kind: 'boolValue',
@@ -187,6 +227,16 @@ test('value.decode - boolValue', t => {
 
   const actual = value.decode(encodedValue);
   t.is(actual, true);
+});
+
+test('value.decode - boolValue is null', t => {
+  const encodedValue = {
+    kind: 'boolValue',
+    boolValue: null
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
 });
 
 // https://github.com/callmehiphop/pb-util/issues/5
