@@ -23,13 +23,13 @@ export type JsonValue = string|number|boolean|null|JsonObject|JsonArray;
  *     - `boolValue`
  *     - `structValue`
  *     - `listValue`
- * @property {number} [nullValue] Represents a null value, actual field value
+ * @property {number | 'NULL_VALUE' | null} [nullValue] Represents a null value, actual field value
  *     should be `0`.
- * @property {number} [numberValue] Represents a number.
- * @property {string} [stringValue] Represents a string.
- * @property {boolean} [boolValue] Represents a boolean.
- * @property {Struct} [structValue] Represents an object.
- * @property {ListValue} [listValue] Represents an array of values.
+ * @property {number | null} [numberValue] Represents a number.
+ * @property {string | null} [stringValue] Represents a string.
+ * @property {boolean | null} [boolValue] Represents a boolean.
+ * @property {Struct | null} [structValue] Represents an object.
+ * @property {ListValue | null} [listValue] Represents an array of values.
  */
 export interface Value {
   kind?: string;
@@ -51,7 +51,7 @@ export interface Struct {
 
 /**
  * @typedef {Object} ListValue
- * @property {Value[]} values The list values.
+ * @property {Value[] | null} values The list values.
  */
 export interface ListValue {
   values?: Value[] | null;
