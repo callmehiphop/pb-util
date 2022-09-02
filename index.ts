@@ -23,22 +23,22 @@ export type JsonValue = string|number|boolean|null|JsonObject|JsonArray;
  *     - `boolValue`
  *     - `structValue`
  *     - `listValue`
- * @property {number} [nullValue] Represents a null value, actual field value
+ * @property {number | 'NULL_VALUE' | null} [nullValue] Represents a null value, actual field value
  *     should be `0`.
- * @property {number} [numberValue] Represents a number.
- * @property {string} [stringValue] Represents a string.
- * @property {boolean} [boolValue] Represents a boolean.
- * @property {Struct} [structValue] Represents an object.
- * @property {ListValue} [listValue] Represents an array of values.
+ * @property {number | null} [numberValue] Represents a number.
+ * @property {string | null} [stringValue] Represents a string.
+ * @property {boolean | null} [boolValue] Represents a boolean.
+ * @property {Struct | null} [structValue] Represents an object.
+ * @property {ListValue | null} [listValue] Represents an array of values.
  */
 export interface Value {
   kind?: string;
-  nullValue?: number;
-  numberValue?: number;
-  stringValue?: string;
-  boolValue?: boolean;
-  structValue?: Struct;
-  listValue?: ListValue;
+  nullValue?: number | 'NULL_VALUE' | null;
+  numberValue?: number | null;
+  stringValue?: string | null;
+  boolValue?: boolean | null;
+  structValue?: Struct | null;
+  listValue?: ListValue | null;
 }
 
 /**
@@ -46,15 +46,15 @@ export interface Value {
  * @property {Object.<string, Value>} fields The struct fields.
  */
 export interface Struct {
-  fields?: {[key: string]: Value};
+  fields?: {[key: string]: Value} | null;
 }
 
 /**
  * @typedef {Object} ListValue
- * @property {Value[]} values The list values.
+ * @property {Value[] | null} values The list values.
  */
 export interface ListValue {
-  values?: Value[];
+  values?: Value[] | null;
 }
 
 /**
@@ -176,6 +176,7 @@ export const struct = {
    * @returns {Object.<string, *>}
    */
   decode({fields = {}}: Struct): JsonObject {
+    if (fields === null) return null;
     const json = {};
     Object.keys(fields).forEach(key => {
       json[key] = value.decode(fields[key]);
@@ -206,6 +207,7 @@ export const list = {
    * @returns {Array.<*>}
    */
   decode({values = []}: ListValue): JsonArray {
+    if (values === null) return null;
     return values.map(value.decode);
   }
 };
