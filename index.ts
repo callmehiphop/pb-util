@@ -176,6 +176,7 @@ export const struct = {
    * @returns {Object.<string, *>}
    */
   decode({fields = {}}: Struct): JsonObject {
+    if (fields === null) return null;
     const json = {};
     Object.keys(fields).forEach(key => {
       json[key] = value.decode(fields[key]);
@@ -206,6 +207,7 @@ export const list = {
    * @returns {Array.<*>}
    */
   decode({values = []}: ListValue): JsonArray {
+    if (values === null) return null;
     return values.map(value.decode);
   }
 };
