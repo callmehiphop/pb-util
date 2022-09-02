@@ -129,10 +129,30 @@ test('value.decode - structValue', t => {
   t.deepEqual(actual, obj);
 });
 
-test('value.decode - nullValue', t => {
+test('value.decode - nullValue 0', t => {
   const encodedValue = {
     kind: 'nullValue',
     nullValue: 0
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
+});
+
+test('value.decode - nullValue NULL_VALUE', t => {
+  const encodedValue = {
+    kind: 'nullValue',
+    nullValue: 'NULL_VALUE' as const
+  };
+
+  const actual = value.decode(encodedValue);
+  t.is(actual, null);
+});
+
+test('value.decode - nullValue null', t => {
+  const encodedValue = {
+    kind: 'nullValue',
+    nullValue: null
   };
 
   const actual = value.decode(encodedValue);
