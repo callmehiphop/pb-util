@@ -12,7 +12,7 @@ export interface JsonArray extends Array<JsonValue> {}
 /**
  * Matches any valid JSON value.
  */
-export type JsonValue = string|number|boolean|null|JsonObject|JsonArray;
+export type JsonValue = string|number|boolean|null|undefined|JsonObject|JsonArray;
 
 /**
  * @typedef {Object} Value
@@ -77,7 +77,8 @@ const encoders = {
   [typeOf(0)]: v => wrap(Kind.Number, v),
   [typeOf('')]: v => wrap(Kind.String, v),
   [typeOf(true)]: v => wrap(Kind.Bool, v),
-  [typeOf(null)]: () => wrap(Kind.Null, 0)
+  [typeOf(null)]: () => wrap(Kind.Null, 0),
+  [typeOf(undefined)]: () => wrap(Kind.Null, 0),
 };
 
 function typeOf(value: JsonValue): string {
@@ -124,6 +125,7 @@ export const value = {
   },
   /**
    * Decodes a protobuf {@link Value} into a JSON value.
+   * undefined value impossible appear in decode
    *
    * @throws {TypeError} If unable to determine value `kind`.
    *
