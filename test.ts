@@ -1,7 +1,7 @@
 import test from 'ava';
 import {list, struct, value, JsonValue} from './index';
 
-const arr = [null, 10];
+const arr = [null, 10, undefined];
 
 const obj = {
   foo: 'bar',
